@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Submit Feedback</h1>
+<mat-dialog-content>
+  <div fxFlex fxLayout="column">
+    <form [formGroup]="feedbackForm" fxLayout="column" (keyup.enter)="submitFeedback()" style="padding-top: 10px">
+      <mat-form-field>
+        <textarea matInput formControlName="feedback" placeholder="Feedback"></textarea>
+      </mat-form-field>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button (click)="submitFeedback()" color="primary" [disabled]="isSaving || !feedbackForm.valid">
+    <mat-spinner *ngIf="isSaving" mode="indeterminate" [diameter]="20" color="accent" class="button-spinner">
+    </mat-spinner>
+    Submit
+  </button>
+</mat-dialog-actions>

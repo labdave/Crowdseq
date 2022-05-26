@@ -1,0 +1,44 @@
+.success{
+  background-color: #43a047 !important;
+  color: #FFFFFF !important;
+}
+
+.warning{
+  background-color: #FFA726 !important;
+  color: #FFFFFF !important;
+}
+
+.normal{
+  background-color: #29B6F6 !important;
+  color: #FFFFFF !important;
+}
+
+.error{
+  background-color: #F4511E !important;
+  color: #FFFFFF !important;
+}
+
+.alert-action-button{
+  margin-left: 10px;
+}
+
+.angular-with-newlines {
+  white-space: pre-wrap;
+}
+
+.dialogHeader{
+  font-weight: normal;
+  padding: 15px;
+  margin-top: -24px;
+  margin-left: -24px;
+  margin-right: -24px;
+}
+
+mat-dialog-actions{
+  padding: 0 24px 10px;
+}
+
+mat-dialog-content{
+  margin: 0;
+  padding: 0 24px 10px;
+}

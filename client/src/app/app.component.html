@@ -1,0 +1,24 @@
+<mat-sidenav-container>
+  <!-- ********************* CONTENT  ******************* -->
+  <mat-sidenav-content class="seq-content">
+    <mat-toolbar *ngIf="showNavBar" color="primary">
+      <!-- <a class="seq-menu-link" routerLink="/home" style="cursor:pointer; padding-left:0px;">
+        <mat-icon svgIcon="seq" class="small-logo"></mat-icon>
+      </a> -->
+      <span class="app-toolbar-filler"></span>
+      <label *ngIf="userInfo">{{userInfo.full_name}}</label>
+      <!-- <button *ngIf="userInfo" id="userSettings" mat-icon-button matTooltip="Options" [matMenuTriggerFor]="userMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button> -->
+      <!--<button mat-button (click)="isDarkTheme = !isDarkTheme">TOGGLE DARK THEME</button>-->
+      <input hidden (change)="onAnnotationFileSelected($event)" #annotationUpload type="file" id="annotationUpload">
+    </mat-toolbar>
+
+    <mat-menu #userMenu="matMenu">
+    </mat-menu>
+
+    <div class="app-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

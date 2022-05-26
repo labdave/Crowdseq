@@ -1,0 +1,40 @@
+.search-form {
+  min-width: 50%;
+  padding: 30px 10px 10px 10px;
+}
+
+.search-form>* {
+  padding-bottom: 40px;
+}
+
+.button-group {
+  text-align: right;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.ddb-anchor {
+  width: 100%;
+  cursor: pointer;
+}
+
+.search-card {
+  padding: 0px;
+  height: 70%;
+}
+
+.search-container {
+  width: 50%;
+}
+
+.action-button {
+  width: 100%;
+}
+
+.powered-by-container {
+  width: 50%;
+  height: 75px;
+  text-align: center;
+}

@@ -1,0 +1,21 @@
+<div fxFill fxLayoutAlign="space-between center">
+    <mat-card *ngIf="data" class="card-container" style="margin-left: 15px">
+        <div fxFlex fxLayout="column" style="overflow:auto; width: 100%">
+            <div fxFlex="30" fxLayout="row" fxLayoutAlign="space-between start">
+                <div fxFlex fxLayout="row" fxLayoutAlign="start start" class="card-header">
+                    <div>
+                        <mat-card-title *ngIf="data.alt_chrom_pos_ref_alt">{{ data.alt_chrom_pos_ref_alt }}</mat-card-title>
+                        <mat-card-subtitle>Chrom-Pos-Ref-Alt</mat-card-subtitle>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div fxFlex fxLayout="column" fxLayoutAlign="start start">
+                <div fxLayout="column" style="width: 100%; padding-bottom: 10px;">
+                    <app-annotation-selector [annotations]="annotationList" [(index)]="annotationIndex"
+                        class="annotation-selector"></app-annotation-selector>
+                </div>
+            </div> -->
+        </div>
+    </mat-card>
+</div>

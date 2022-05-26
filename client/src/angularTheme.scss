@@ -1,0 +1,20 @@
+@import '~@angular/material/theming';
+// Common styles for Angular Material.
+@include mat-core();
+
+//Any component inside of an element with this css class will be affected by
+//this theme instead of the default
+
+.seq-dark-theme {
+  @import './themes/dark/darkPalette'; // IMPORT PALETTE SCSS STYLINGS
+  @include angular-material-theme($theme); 
+  @import './themes/dark/darkGeneral'; // IMPORT GENERAL SCSS STYLINGS
+  @import './themes/dark/darkHC'; // IMPORT HIGHCHARTS SCSS STYLINGS
+}
+
+.seq-light-theme {
+  @import './themes/light/lightPalette'; // IMPORT PALETTE SCSS STYLINGS
+  @include angular-material-theme($theme); // DEFAULT THEME
+  @import './themes/light/lightGeneral'; // IMPORT GENERAL SCSS STYLINGS
+  @import './themes/light/lightHC'; // IMPORT HIGHCHARTS SCSS STYLINGS
+}

@@ -1,0 +1,63 @@
+<div fxFlex fxLayoutAlign="space-between center">
+    <mat-card *ngIf="data" class="card-container" style="margin-left: 15px">
+      <div fxFlex fxLayout="column" style="overflow:auto">
+        <div *ngIf="showTitle" fxFlex fxLayout="row" fxLayoutAlign="start start" class="card-header">
+            <div>
+                <mat-card-title>Transcripts</mat-card-title>
+            </div>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy" floatLabel="always">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" #input>
+            </mat-form-field>
+        </div>
+        <div style="width: 100%; overflow:auto;">
+            <table mat-table [dataSource]="dataSource" matSort style="width: 100%;">
+
+                <!-- Ensembl Transcript ID -->
+                <ng-container matColumnDef="transcript_id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Ensembl Transcript ID </th>
+                    <td mat-cell *matCellDef="let transcript">
+                        <span *ngIf="transcript"> {{ transcript.ensembl_transcript_id }}</span>
+                    </td>
+                </ng-container>
+  
+                <!-- Canonical -->
+                <ng-container matColumnDef="canonical">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Canonical </th>
+                    <td mat-cell *matCellDef="let transcript">
+                        <mat-icon *ngIf="transcript && transcript.ensembl_canonical"  [ngStyle]="{'color':'#00cca5'}">check_circle</mat-icon>
+                    </td>
+                </ng-container>
+
+                <!-- AA Change Name Column -->
+                <ng-container matColumnDef="aa_change">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Amino Acid Change </th>
+                    <td mat-cell *matCellDef="let transcript">
+                        <span *ngIf="transcript"> {{ transcript.aa_change_name }}</span>
+                    </td>
+                </ng-container>
+
+                <!-- Transcript Length Column -->
+                <ng-container matColumnDef="transcript_length">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Transcript Length </th>
+                    <td mat-cell *matCellDef="let transcript">
+                        <span *ngIf="transcript"> {{ transcript.transcript_length }}</span>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="2">No data matching the filter "{{input.value}}"</td>
+                </tr>
+            </table>
+          </div>
+        
+      </div>
+    </mat-card>
+  </div>
+  

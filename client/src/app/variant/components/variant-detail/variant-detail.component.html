@@ -1,0 +1,17 @@
+<div [seqLoadingOverlay]="isLoading" fxLayout="column" fxLayoutAlign="start center" style="height:100%">
+
+    <app-gene-card fxFlex="15" *ngIf="geneData" [data]="geneData" style="padding-top: 10px; width: 100%"></app-gene-card>
+
+    <app-variant-card *ngIf="variantData" [data]="variantData" style="padding-top: 10px; padding-bottom: 10px; width:100%"></app-variant-card>
+
+    <div *ngIf="transcriptData && transcriptData.length > 0" fxLayoutAlign="start start" style="width: 100%" class="section-header">
+        <h1>Transcripts</h1>
+    </div>
+    <div  fxFlex fxLayout="column" *ngFor="let transcript of transcriptData" style="padding-top: 10px; width:100%">
+        <app-transcript-card [data]="transcript"></app-transcript-card>
+    </div>
+<!-- 
+    <app-transcript-list *ngIf="transcriptData" [data]="transcriptData" style="padding-top: 10px; padding-bottom: 10px; width:100%"></app-transcript-list> -->
+
+</div>
+  

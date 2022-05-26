@@ -1,0 +1,68 @@
+// SEQ DARK (DEFAULT)
+$seq-primary-color: (
+  50 : #eff1f2,
+  100 : #d8dbde,
+  200 : #bec4c8,
+  300 : #a4acb1,
+  400 : #919aa1,
+  500 : #7d8890,
+  600 : #758088,
+  700 : #6a757d,
+  800 : #606b73,
+  900 : #4d5861,
+  A100 : #c7e5fd,
+  A200 : #95cefc,
+  A400 : #5fb7ff,
+  A700 : #46acff,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+$seq-accent-color: (
+	50 : #ebebe2,
+  100 : #ccceb6,
+  200 : #aaad86,
+  300 : #888c56,
+  400 : #6f7431,
+  500 : #555b0d,
+  600 : #4e530b,
+  700 : #444909,
+  800 : #3b4007,
+  900 : #2a2f03,
+  A100 : #ecff68,
+  A200 : #e6ff35,
+  A400 : #dfff02,
+  A700 : #cae700,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #ffffff,
+      300 : #ffffff,
+      400 : #ffffff,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
+$primary: mat-palette($seq-primary-color);
+$accent: mat-palette($seq-accent-color);
+$theme: mat-dark-theme($primary, $accent);

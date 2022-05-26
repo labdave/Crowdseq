@@ -1,0 +1,18 @@
+<div fxLayout="column" fxLayoutAlign="start start" *ngIf="selectedAnnotation" style="height: 100%;">
+    <div fxLayout="row" fxLayoutAlign="end center" style="width: 100%">
+        <button mat-icon-button [disabled]="!isPreviousAnnotationEnabled()" matTooltip="Previous Annotation" (click)="changeAnnotation(true)">
+            <mat-icon>chevron_left</mat-icon>
+        </button>
+        <button mat-icon-button [disabled]="!isNextAnnotationEnabled()" matTooltip="Next Annotation" (click)="changeAnnotation()">
+            <mat-icon>chevron_right</mat-icon>
+        </button>
+        <button mat-icon-button (click)="editAnnotation()" matTooltip="Edit Annotation">
+            <mat-icon>edit</mat-icon>
+        </button>
+    </div>
+    <div fxFlex="80" fxLayout="row" fxLayoutAlign="start start" style="height:100%;">
+        <div>
+            <p>{{selectedAnnotation.annotation}}</p>
+        </div>
+    </div>
+</div>

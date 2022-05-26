@@ -1,0 +1,97 @@
+.card-header {
+  flex: 1 1 auto !important;
+}
+
+.card-container {
+  width: 95%;
+  height: 100%;
+}
+
+.aa-select {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.annotation-selector {
+  width: 100%;
+}
+
+.annovar-link {
+  color: dodgerblue;
+
+  &:hover {
+    text-decoration: underline;
+    color: #0086ff;
+  }
+}
+
+.igv-thumbnail {
+  width: 30%;
+  margin-left: 10px;
+  height: 100%;
+}
+
+.igv-qc {
+  width: 100%;
+  padding: 10px;
+  cursor: default;
+}
+
+.igv-image-container {
+  margin-top: 5px;
+  padding: 10px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.igv-image {
+  margin-top: 5px;
+  width: calc(100%);
+  margin-bottom: 5px;
+  height: 100%;
+}
+
+.lolliplot-image {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 100px;
+  height: 100px;
+}
+
+.good_qual {
+  color: rgba(0, 200, 0, .66) !important;
+}
+
+.bad_qual {
+  color: rgba(200, 0, 0, .66) !important;
+}
+
+.marginal_qual {
+  color: rgba(0, 0, 200, .66) !important;
+}
+
+.info-header {
+  color: #000;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 16px;
+  padding-right: 5px;
+}
+
+.info-text {
+  color: rgba(0, 0, 0, .66);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.variant-data-label {
+  width: 120px;
+  min-width: 120px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.content-exported {
+  background-color: lightgreen;
+}

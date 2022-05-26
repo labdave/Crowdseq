@@ -1,0 +1,20 @@
+<div fxLayout="row" fxLayoutAlign="space-between start">
+  <h1 mat-dialog-title>{{dialogTitle}}</h1>
+</div>
+<mat-dialog-content style="max-height: 70%; height: 70%">
+  <div fxFlex fxLayout="column" fxLayoutAlign="start none">
+    <form [formGroup]="annotationForm" fxLayout="column" style="width: 100%; height: 180px;">
+      <mat-form-field style="width: 100%;">
+        <textarea matInput formControlName="annotation" placeholder="Annotation" style="width: 100%; height: 180px; max-height: 180px;"></textarea>
+      </mat-form-field>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button (click)="saveAnnotation()" color="primary" [disabled]="isSaving || !annotationForm.valid">
+    <mat-spinner *ngIf="isSaving" mode="indeterminate" [diameter]="20" color="accent" class="button-spinner">
+    </mat-spinner>
+    Save Annotation
+  </button>
+</mat-dialog-actions>

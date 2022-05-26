@@ -1,0 +1,44 @@
+<div fxFill fxLayout="column" fxLayoutAlign="space-between center">
+    <div class="search-container">
+      <!-- <seq-search-svg-logo></seq-search-svg-logo> -->
+      <form [formGroup]="searchForm" class="search-form">
+        <div>
+          <mat-form-field class="searchFormField" floatLabel="never">
+            <mat-icon matPrefix style="vertical-align:middle">search</mat-icon>
+            <input type="search" formControlName="searchTerm" matInput placeholder="Search" autocomplete="off"
+              autocorrect="off" autocapitalize="off" spellcheck="false" (keydown)="onKeydownEvent($event)"
+              [matAutocomplete]="auto">
+            <button mat-button *ngIf="searchForm.controls['searchTerm'].value" matSuffix mat-icon-button
+              aria-label="Clear" (click)="clearSearch()">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="navigateTo($event)">
+                <mat-option *ngIf="isLoading">
+                  <mat-spinner diameter="25"></mat-spinner>
+                </mat-option>
+                <mat-option *ngIf="!isLoading && searchForm.controls['searchTerm'].value !== '' && searchForm.controls['searchTerm'].value.length > 2 && (!queryResult || queryResult.genes.length == 0 && queryResult.variants.length == 0)">
+                  No results found for this query
+                </mat-option>
+                <mat-optgroup *ngIf="!isLoading && queryResult && queryResult.genes && queryResult.genes.length > 0" label="Genes">
+                    <mat-option *ngFor="let gene of queryResult.genes" value="/gene/{{gene.approved_symbol}}">
+                      {{gene.approved_symbol}}
+                    </mat-option>
+                </mat-optgroup>
+                <mat-optgroup *ngIf="!isLoading && queryResult && queryResult.variants && queryResult.variants.length > 0" label="Variants">
+                    <mat-option *ngFor="let variant of queryResult.variants" value="/variant/{{variant.chrom_pos_ref_alt}}">
+                      {{variant.alt_hgvsg_id}}
+                    </mat-option>
+                </mat-optgroup>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+    <!-- <div class="powered-by-container">
+      <a href="http://ddb.bio" target="_blank">
+        <seq-powered-by-logo></seq-powered-by-logo>
+      </a>
+    </div> -->
+  
+  </div>
+  

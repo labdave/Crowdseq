@@ -1,0 +1,103 @@
+// SEQ LIGHT
+$seq-light-primary-color: (
+    50 : #e0f3ff,
+    100 : #b3e0ff,
+    200 : #80ccff,
+    300 : #4db8ff,
+    400 : #26a8ff,
+    500 : #0099ff,
+    600 : #0091ff,
+    700 : #0086ff,
+    800 : #007cff,
+    900 : #006bff,
+    A100 : #ffffff,
+    A200 : #f2f7ff,
+    A400 : #bfd6ff,
+    A700 : #a6c6ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$seq-light-accent-color: (
+    50 : #fff3ea,
+    100 : #ffe0ca,
+    200 : #ffcca6,
+    300 : #ffb882,
+    400 : #ffa868,
+    500 : #ff994d,
+    600 : #ff9146,
+    700 : #ff863d,
+    800 : #ff7c34,
+    900 : #ff6b25,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffe0d3,
+    A700 : #ffceb9,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$seq-light-warn-color: (
+    50 : #fce4e8,
+    100 : #f7bbc6,
+    200 : #f28ea1,
+    300 : #ed607b,
+    400 : #e93e5e,
+    500 : #e51c42,
+    600 : #e2193c,
+    700 : #de1433,
+    800 : #da112b,
+    900 : #d3091d,
+    A100 : #fffdfd,
+    A200 : #ffcace,
+    A400 : #ff979e,
+    A700 : #ff7e87,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$primary: mat-palette($seq-light-primary-color);
+$accent: mat-palette($seq-light-accent-color);
+$theme: mat-light-theme($primary, $accent);

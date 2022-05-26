@@ -1,0 +1,82 @@
+.login-logo > * {
+  fill: mat-color($primary, 500);
+}
+.small-logo {
+  fill: #fff;
+}
+.scale-logo {
+  stroke: #fff;
+}
+.selectedListItem {
+  border-left: 5px solid mat-color($primary, 500);
+}
+.seq-menu-link.active {
+  color: mat-color($primary, 300);
+  .scale-logo {
+    stroke: mat-color($primary, 300);
+  }
+}
+.sidebar-hover-bar {
+  background-color: mat-color($primary, 400);
+}
+.mat-calendar-body-selected {
+  background-color: mat-color($primary, 500);
+}
+.mat-drawer {
+  background-color: #3B3B3A;
+}
+.mat-drawer-container {
+  background-color: #dcdcdc  !important;
+  color: #000 !important;
+}
+mat-sidenav .mat-nav-list .mat-list-item {
+  color: #fff;
+}
+mat-toolbar.mat-toolbar.mat-primary {
+  background: mat-color($primary, 900);
+}
+.active-view>button {
+  color: mat-color($primary, 300);
+}
+
+.highcharts-tracker-line {
+  visibility: hidden !important;
+}
+.gaugeMarker {
+  fill: #DF5353 !important;
+  fill-opacity: 1 !important;
+}
+
+
+/***** MAT TABLE *****/
+th.mat-header-cell{
+  background: mat-color($primary, 500) !important;
+  color: #fff;
+  font-weight: bold;
+}
+
+mat-header-cell{
+  background: mat-color($primary, 500) !important;
+  color: #fff !important;
+  font-weight: bold;
+}
+
+.mat-sort-header-arrow {
+  color: white;
+}
+
+.primary-color {
+  color: mat-color($primary, 500);
+}
+
+.accent-color {
+  color: mat-color($accent, 500);
+}
+
+.nucleic-selector-checked {
+  background-color: mat-color($accent, 500);
+}
+
+.nucleic-selector-standard {
+  background-color: mat-color($accent, 200);
+}

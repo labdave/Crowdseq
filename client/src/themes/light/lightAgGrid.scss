@@ -1,0 +1,135 @@
+.ag-theme-material {
+  background-color: mat-color($primary, 500) !important;
+
+  .ag-cell {
+    color: #000;
+    background-color: #ffffff;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+
+    .ag-group-expanded .ag-icon-contracted:empty {
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIuNSA2LjVMOSAxMCA1LjUgNi41bC0xIDFMOSAxMmw0LjUtNC41eiIgZmlsbD0iIzMzMyIvPjwvc3ZnPg==);
+      height: 8px;
+    }
+    .ag-icon-expanded {
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNiAxMi41TDkuNSA5IDYgNS41bDEtMUwxMS41IDkgNyAxMy41eiIgZmlsbD0iIzMzMyIvPjwvc3ZnPg==);
+      height: 8px;
+    }
+  }
+
+  .ag-row {
+    border-bottom: 1px solid #999 !important;
+    box-sizing: border-box;
+  }
+
+  .ag-header {
+    background-color: mat-color($primary, 500) !important;
+    color: mat-contrast($primary, 500) !important;
+  }
+
+  // Left and right padding for column headers
+  .ag-header-cell {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .ag-ltr {
+    .ag-cell-focus {
+      border: 2px solid mat-color($primary, 500) !important;
+    }
+    .ag-cell-no-focus {
+      border-right: 1px dotted #999 !important;
+    }
+    .ag-row-group-leaf-indent {
+      margin-left: 22px !important;
+    }
+  }
+
+  .ag-group-expanded span, .ag-group-contracted span {
+    margin-right: 5px !important;
+  }
+
+  $toolpanel-indent-size: 15px !default;
+  $row-group-indent-size: 15px !default;
+  @for $i from 1 to 10 {
+    .ag-ltr .ag-toolpanel-indent-#{$i} {
+      padding-left: $i * $toolpanel-indent-size !important;
+    }
+    .ag-rtl .ag-toolpanel-indent-#{$i} {
+      padding-right: $i * $toolpanel-indent-size !important;
+    }
+    .ag-ltr .ag-row-group-indent-#{$i} {
+      padding-left: $i * $row-group-indent-size !important;
+    }
+    .ag-rtl .ag-row-group-indent-#{$i} {
+      padding-right: $i * $row-group-indent-size !important;
+    }
+  }
+
+  .ag-cell-align-center {
+    text-align: center;
+  }
+
+  .ag-overlay {
+    height: calc(100% - 50px);
+    top: 50px;
+  }
+
+  .ag-body-viewport {
+    background-color: #ffffff;
+  }
+  
+  .ag-pinned-left-cols-viewport {
+    background-color: #ffffff;
+  }
+  
+  .ag-overlay-panel {
+    color: #000000;
+  }
+  .ag-header-select-all {
+    .ag-icon-checkbox-checked {
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTYgMEgyYTIgMiAwIDAgMC0yIDJ2MTRhMiAyIDAgMCAwIDIgMmgxNGEyIDIgMCAwIDAgMi0yVjJhMiAyIDAgMCAwLTItMnpNNyAxNEwyIDlsMS40MS0xLjQxTDcgMTEuMTdsNy41OS03LjU5TDE2IDVsLTkgOXoiIGZpbGw9IiNmZmZmZmYiLz48L3N2Zz4=) !important;
+    }
+    .ag-icon-checkbox-indeterminate {
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTYgMEgyQy45IDAgMCAuOSAwIDJ2MTRjMCAxLjEuOSAyIDIgMmgxNGMxLjEgMCAyLS45IDItMlYyYzAtMS4xLS45LTItMi0yem0tMiAxMEg0VjhoMTB2MnoiIGZpbGw9IiNmZmYiLz48L3N2Zz4=) !important;
+    }
+    .ag-icon-checkbox-unchecked {
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTYgMnYxNEgyVjJoMTR6bTAtMkgyQy45IDAgMCAuOSAwIDJ2MTRjMCAxLjEuOSAyIDIgMmgxNGMxLjEgMCAyLS45IDItMlYyYzAtMS4xLS45LTItMi0yeiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==) !important;
+    }
+  }
+  .ag-icon-checkbox-checked {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTYgMEgyYTIgMiAwIDAgMC0yIDJ2MTRhMiAyIDAgMCAwIDIgMmgxNGEyIDIgMCAwIDAgMi0yVjJhMiAyIDAgMCAwLTItMnpNNyAxNEwyIDlsMS40MS0xLjQxTDcgMTEuMTdsNy41OS03LjU5TDE2IDVsLTkgOXoiIGZpbGw9IiM0NTU1NjAiLz48L3N2Zz4=) !important;
+  }
+  .ag-icon-checkbox-indeterminate {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTYgMEgyQy45IDAgMCAuOSAwIDJ2MTRjMCAxLjEuOSAyIDIgMmgxNGMxLjEgMCAyLS45IDItMlYyYzAtMS4xLS45LTItMi0yem0tMiAxMEg0VjhoMTB2MnoiIGZpbGw9IiM0NTU1NjAiLz48L3N2Zz4=) !important;
+  }
+  .ag-icon-checkbox-unchecked {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTYgMnYxNEgyVjJoMTR6bTAtMkgyQy45IDAgMCAuOSAwIDJ2MTRjMCAxLjEuOSAyIDIgMmgxNGMxLjEgMCAyLS45IDItMlYyYzAtMS4xLS45LTItMi0yeiIgZmlsbD0iIzQ1NTU2MCIvPjwvc3ZnPg==) !important;
+  }
+}
+
+.light-checkbox-row {
+  .ag-icon-checkbox-checked {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTYgMEgyYTIgMiAwIDAgMC0yIDJ2MTRhMiAyIDAgMCAwIDIgMmgxNGEyIDIgMCAwIDAgMi0yVjJhMiAyIDAgMCAwLTItMnpNNyAxNEwyIDlsMS40MS0xLjQxTDcgMTEuMTdsNy41OS03LjU5TDE2IDVsLTkgOXoiIGZpbGw9IiNmZmZmZmYiLz48L3N2Zz4=) !important;
+  }
+  .ag-icon-checkbox-indeterminate {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTYgMEgyQy45IDAgMCAuOSAwIDJ2MTRjMCAxLjEuOSAyIDIgMmgxNGMxLjEgMCAyLS45IDItMlYyYzAtMS4xLS45LTItMi0yem0tMiAxMEg0VjhoMTB2MnoiIGZpbGw9IiNmZmYiLz48L3N2Zz4=) !important;
+  }
+  .ag-icon-checkbox-unchecked {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTYgMnYxNEgyVjJoMTR6bTAtMkgyQy45IDAgMCAuOSAwIDJ2MTRjMCAxLjEuOSAyIDIgMmgxNGMxLjEgMCAyLS45IDItMlYyYzAtMS4xLS45LTItMi0yeiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==) !important;
+  }
+}
+
+.errorRow {
+  .ag-cell{
+  background-color: #FFA726;
+  color: #fff;
+  }
+  .ag-icon-checkbox-checked {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTYgMEgyYTIgMiAwIDAgMC0yIDJ2MTRhMiAyIDAgMCAwIDIgMmgxNGEyIDIgMCAwIDAgMi0yVjJhMiAyIDAgMCAwLTItMnpNNyAxNEwyIDlsMS40MS0xLjQxTDcgMTEuMTdsNy41OS03LjU5TDE2IDVsLTkgOXoiIGZpbGw9IiNmZmZmZmYiLz48L3N2Zz4=) !important;
+  }
+}
+
+.ag-theme-material .ag-cell-inline-editing input[type="text"]{
+  background: white !important;
+}

@@ -1,0 +1,8 @@
+<div [seqLoadingOverlay]="isLoading" fxLayout="column" fxLayoutAlign="start center" style="height:100%">
+
+    <app-gene-card fxFlex="15" *ngIf="geneData" [data]="geneData" style="padding-top: 10px; width: 100%"></app-gene-card>
+
+    <app-variant-list fxFlex="85" *ngIf="variantData"  [showTitle]="true" [data]="variantData" style="padding-top: 10px; padding-bottom: 10px; width:100%"></app-variant-list>
+
+</div>
+  

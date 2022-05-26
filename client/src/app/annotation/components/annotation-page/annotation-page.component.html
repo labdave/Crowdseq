@@ -1,0 +1,104 @@
+<div fxFill fxLayoutAlign="space-between start">
+    <div fxFlex fxLayout="column" fxLayoutAlign="space-around start"
+            *ngFor="let annotation of annotationList">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-around start">
+            <div fxFlex fxLayout="column" fxLayoutAlign="space-around start">
+                <mat-card *ngIf="annotation.gene_ref" class="card-container" style="margin:10px 0 0 15px">
+                    <div fxFlex fxLayout="column" style="overflow:auto">
+                      <div fxFlex fxLayout="row" fxLayoutAlign="space-between start">
+                          <div fxFlex fxLayout="row" fxLayoutAlign="start start" class="card-header">
+                              <div style="padding-right: 75px">
+                                <mat-card-title *ngIf="annotation.gene_ref">{{ annotation.gene_ref.gene }}</mat-card-title>
+                                <mat-card-subtitle>Gene</mat-card-subtitle>
+                              </div>                
+                            </div>
+                      </div>
+                      
+                      <div fxLayout="column" fxLayoutAlign="start start">
+                        <div fxLayout="column"  style="width: 100%; padding-bottom: 10px;">
+                          <app-annotation-selector [annotations]="annotation.gene_ref.annotations" permission="change_geneannotation" (listUpdated)="updateGeneAnnotationList($event)" class="annotation-selector"></app-annotation-selector>
+                        </div>
+                      </div>
+                    </div>
+                </mat-card>
+        
+                <div fxFlex fxLayout="column" *ngFor="let variant of annotation.aa_ref">
+                    <mat-card  class="card-container" style="margin:10px 0 0 15px">
+                        <div fxFlex fxLayout="column" style="overflow:auto">
+                          <div fxFlex fxLayout="row" fxLayoutAlign="space-between start">
+                              <div fxFlex fxLayout="row" fxLayoutAlign="start start" class="card-header">
+                                  <div style="padding-right: 75px">
+                                    <mat-card-title>{{ variant.aa_change }}</mat-card-title>
+                                    <mat-card-subtitle>Variant</mat-card-subtitle>
+                                  </div>                
+                                </div>
+                          </div>
+                          
+                          <div fxLayout="column" fxLayoutAlign="start start">
+                            <div fxLayout="column" *ngIf="variant.annotations" style="width: 100%; padding-bottom: 10px;">
+                                <app-annotation-selector [annotations]="variant.annotations" permission="change_aaannotation" (listUpdated)="updateVariantAnnotationList($event)" class="annotation-selector"></app-annotation-selector>
+                            </div>
+                            <div *ngIf="!variant.annotations" fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%; padding-bottom: 10px;">
+                                <div fxFlex>
+                                  
+                                </div>
+                                <div fxFlex="80">
+                                  <p style="margin-top: 0px;">This variant is of unknown biological significance.</p>
+                                </div>
+                                <div fxFlex>
+                                  <button *ngIf="permissionService.userHasPermission('change_aaannotation')" mat-icon-button (click)="editAnnotation()" matTooltip="Edit Annotation">
+                                    <mat-icon>edit</mat-icon>
+                                  </button>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                    </mat-card>
+                    <mat-card class="card-container" style="margin:10px 0 0 15px">
+                        <app-transcript-card fxFlex [transcriptList]="variant.transcripts"></app-transcript-card>
+                    </mat-card>
+                </div>        
+            </div>
+            <div fxFlex *ngFor="let anno of annotation.annovar">
+                <div style="width: 95%; height: 900px; max-height: 900px; margin-top: 10px">
+                    <app-annovar-card [data]="anno"></app-annovar-card>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <!-- <div *ngIf="variant" fxLayout="column" class="igv-thumbnail">
+      <mat-card *ngIf="variant" class="igv-qc">
+        <div fxLayout="column">
+          <div *ngIf="analysisVariant.quality && analysisVariant.quality !== ''">
+            <span class="info-header">Quality</span>
+            <span class="info-text" [class.good_qual]="analysisVariant.quality === 'Good'"
+            [class.bad_qual]="analysisVariant.quality === 'Bad'"
+            [class.marginal_qual]="analysisVariant.quality === 'Marginal'">{{analysisVariant.quality}}</span>
+          </div>
+          <div>
+            <span class="info-header">Read Support </span>
+            <span class="info-text" *ngIf="analysisVariant.afMax && analysisVariant.afMax >= 0">{{ readSupport | number: '1.0-0' }}</span>
+            <span class="info-text" *ngIf="analysisVariant.afMax && analysisVariant.afMax < 0">N/A</span>
+          </div>
+          <div>
+            <span class="info-header">Allele Frequency </span>
+            <span class="info-text" *ngIf="analysisVariant.afMax && analysisVariant.afMax >= 0">{{analysisVariant.afMax | percent:'1.2'}}</span>
+            <span class="info-text" *ngIf="analysisVariant.afMax && analysisVariant.afMax < 0">ND</span>
+          </div>
+        </div>
+      </mat-card>
+      <mat-card *ngIf="igvData" class="igv-image-container" (click)="showIGV($event)">
+        <div fxLayoutAlign="center" fxLayout="column" style="height: 100px;">
+          <img class="igv-image" [src]="igvData" alt="IGV">
+        </div>
+      </mat-card>
+      <mat-card *ngIf="lolliplotData" class="igv-image-container" (click)="showLolliplot($event)">
+        <div fxLayoutAlign="center" fxLayout="column" style="height: 100px;">
+          <img class="igv-image" [src]="lolliplotThumbnail">
+        </div>
+      </mat-card>
+    </div> -->
+  </div>
+  
