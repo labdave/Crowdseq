@@ -6,6 +6,7 @@ from api import views
 
 router = routers.DefaultRouter()
 router.register(r'variants', views.VariantViewSet)
+router.register(r'genes', views.GeneViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

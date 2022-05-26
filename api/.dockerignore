@@ -11,6 +11,9 @@
 docker-compose.yml
 .docker
 
+# Excel files
+*.xlsx
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 */__pycache__/

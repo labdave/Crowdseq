@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
-from dotenv import load_dotenv
+import sys
+import google.cloud.logging
 from pathlib import Path
 
 from corsheaders.defaults import default_methods, default_headers
@@ -26,13 +27,51 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 if "SECRET_KEY" not in os.environ:
+    from dotenv import load_dotenv
     load_dotenv()
 SECRET_KEY = os.environ.get('SECRET_KEY')
+
+log_client = google.cloud.logging.Client()
+log_client.setup_logging()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_APP_DEBUG', False)
 
 ALLOWED_HOSTS = os.getenv('HOSTS').split(',')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'stackdriver_logging': {
+            'class': 'google.cloud.logging.handlers.CloudLoggingHandler',
+            'client': log_client
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'stackdriver_logging'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': [
+                'stackdriver_logging',
+                'mail_admins'
+            ],
+            'level': 'ERROR',
+        }
+    },
+}
 
 
 # Application definition
@@ -50,7 +89,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -60,7 +98,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 CORS_ORIGIN_WHITELIST = os.getenv('CORS_HOSTS').split(',')

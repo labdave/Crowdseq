@@ -1,0 +1,15 @@
+asgiref==3.5.0
+backports.zoneinfo==0.2.1
+celery==5.2.6
+Django==4.0.3
+django-cors-headers==3.11.0
+djangorestframework==3.13.1
+gunicorn==20.1.0
+pandas==1.4.2
+protobuf==3.20.1
+psycopg2==2.9.3
+pytz==2022.1
+requests==2.27.1
+sqlparse==0.2.4
+Aries-storage
+google-cloud-logging

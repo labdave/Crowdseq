@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APPDIR=/opt/ddb/api
+APPDIR=/opt/crowdseq/api
 PROC=/usr/local/bin/uwsgi
 SERVERUSER=clay.parker
 PATH=$PATH:/usr/bin
@@ -22,7 +22,7 @@ fi
 start_uwsgi() {
   echo "Starting uWSGI Server..."
   cd ${APPDIR}
-  ${PROC} --ini ${APPDIR}/uwsgi-prod.ini > /opt/ddb/logs/uwsgi/crowdseq_uwsgi.d.log 2>&1
+  ${PROC} --ini ${APPDIR}/uwsgi-prod.ini > /opt/crowdseq/logs/uwsgi/crowdseq_uwsgi.d.log 2>&1
   sleep 3
   PROCCOUNT=$(pgrep -f $PROC | wc -l)
   if [ $PROCCOUNT -ne 0 ]; then
