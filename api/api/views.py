@@ -55,7 +55,6 @@ class GeneViewSet(viewsets.ModelViewSet):
             serializer_time = time.time() - serializer_start
             print(f"Serializer time: {serializer_time}")
             print(f"Number of queries post-serialization: {len(connection.queries)}")
-            print(f"Number of queries post-serialization: {len(connection.queries)}")
             time_diff = time.time() - start
             print(f"Full queryset time: {time_diff}")
             return Response(data)
@@ -71,16 +70,17 @@ class VariantViewSet(viewsets.ModelViewSet):
     queryset = models.Variants.objects.all().order_by('chrom_pos_ref_alt')
     serializer_class = serializers.VariantSerializer
     filter_backends = (filters.SearchFilter, )
-    search_fields = ('chrom_pos_ref_alt', 'refseq_hgvsg_id', 'alt_hgvsg_id', 'hgvsg_id', 'lrg_hgvsg_id', 'transcripts__aa_change_name', 'transcripts__ensembl_transcript_id')
+    search_fields = ('chrom_pos_ref_alt', 'refseq_hgvsg_id', 'alt_hgvsg_id', 'hgvsg_id', 'lrg_hgvsg_id', 'transcripts__ensembl_transcript_id')
 
     @action(detail=False, permission_classes=[permissions.AllowAny], url_path='cpra/(?P<cpra>[^/]+)', url_name='cpra')
     def get_by_chrom_pos_ref_alt(self, request, *args, **kwargs):
         start = time.time()
         cpra = kwargs['cpra']
         instance = models.Variants.objects.filter(chrom_pos_ref_alt=cpra).prefetch_related(
-                                                                        Prefetch('transcripts', queryset=models.Transcripts.objects.order_by('-ensembl_canonical', 'aa_change_name'), to_attr='filtered_transcripts'),
-                                                                        Prefetch('gene', queryset=models.Genes.objects.all(), to_attr='filtered_genes'),
-                                                                        'transcripts__annotations',
+                                                                        'transcripts',
+                                                                        'gene',
+                                                                        'transcripts__aa_changes',
+                                                                        'transcripts__aa_changes__annotations',
                                                                         'gene__annotations'
                                                                         ).first()
         if instance:
@@ -100,13 +100,48 @@ class VariantViewSet(viewsets.ModelViewSet):
 
 class TranscriptViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows viewing/editing Transcript.
+    API endpoint that allows viewing/editing Transcripts.
     """
     pagination_class = StandardResultsSetPagination
-    queryset = models.Transcripts.objects.all().order_by('aa_change_name')
+    queryset = models.Transcript.objects.all()
     serializer_class = serializers.TranscriptSerializer
     filter_backends = (filters.SearchFilter, )
-    search_fields = ('aa_change_name', 'ensembl_transcript_id')
+    search_fields = ('ensembl_transcript_id',)
+
+
+class AminoAcidChangeViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows viewing/editing Amino Acid Changes.
+    """
+    pagination_class = StandardResultsSetPagination
+    queryset = models.AminoAcidChange.objects.all()
+    serializer_class = serializers.AminoAcidChangeSerializer
+    filter_backends = (filters.SearchFilter, )
+    search_fields = ('long_name','short_name',)
+
+    @action(detail=False, permission_classes=[permissions.AllowAny], url_path='short_name/(?P<short_name>[^/]+)', url_name='short_name')
+    def get_by_name(self, request, *args, **kwargs):
+        start = time.time()
+        short_name = kwargs['short_name']
+        instance = models.AminoAcidChange.objects.filter(short_name=short_name).prefetch_related(
+                                                                        Prefetch('annotations', queryset=models.AminoAcidAnnotations.objects.all()),
+                                                                        Prefetch('genes', queryset=models.Genes.objects.all()),
+                                                                        Prefetch('genes__annotations', queryset=models.GeneAnnotation.objects.all()),
+                                                                        Prefetch('transcripts', queryset=models.Transcript.objects.all()),
+                                                                        ).first()
+        if instance:
+            print(f"Number of queries pre-serialization: {len(connection.queries)}")
+            serializer_start = time.time()
+            serializer = serializers.AminoAcidWithAnnotationsSerializer(instance, context={'request': request}, many=False)
+            data = serializer.data
+            serializer_time = time.time() - serializer_start
+            print(f"Serializer time: {serializer_time}")
+            print(f"Number of queries post-serialization: {len(connection.queries)}")
+            time_diff = time.time() - start
+            print(f"Full queryset time: {time_diff}")
+            return Response(data)
+        else:
+            return HttpResponseNotFound('No amino acid change associated with that name.')
 
 
 @api_view(['GET'])
@@ -121,16 +156,26 @@ def search(request):
     start = time.time()
     search_term = request.query_params.get('query', '')
     if search_term:
+        search_terms = search_term.split(' ')
+        search_terms = [x for x in search_terms if x] # filter out blank strings
         gene_fields = ['alias_symbols__icontains', 'approved_name__icontains', 'approved_symbol__icontains']
         or_condition = Q()
-        for key in gene_fields:
-            or_condition.add(Q(**{key: search_term}), Q.OR)
+        for search_term in search_terms:
+            for key in gene_fields:
+                or_condition.add(Q(**{key: search_term}), Q.OR)
         gene_queryset = models.Genes.objects.filter(or_condition).order_by('approved_symbol')
-        transcript_fields = ['aa_change_name__icontains', 'ensembl_transcript_id__icontains']
+        aa_fields = ['long_name__icontains', 'short_name__icontains']
         or_condition = Q()
-        for key in transcript_fields:
-            or_condition.add(Q(**{key: search_term}), Q.OR)
-        trans_matches = models.Transcripts.objects.filter(or_condition)
+        for search_term in search_terms:
+            for key in aa_fields:
+                or_condition.add(Q(**{key: search_term}), Q.OR)
+        aa_queryset = models.AminoAcidChange.objects.filter(or_condition)
+        transcript_fields = ['ensembl_transcript_id__icontains']
+        or_condition = Q()
+        for search_term in search_terms:
+            for key in transcript_fields:
+                or_condition.add(Q(**{key: search_term}), Q.OR)
+        trans_matches = models.Transcript.objects.filter(or_condition)
         trans_var_matches = []
         for transcript in trans_matches:
             for v in transcript.variants.all():
@@ -140,8 +185,9 @@ def search(request):
         or_condition = Q()
         if len(trans_var_matches) > 0:
             or_condition.add(Q(id__in=trans_var_matches), Q.OR)
-        for key in variant_fields:
-            or_condition.add(Q(**{key: search_term}), Q.OR)
+        for search_term in search_terms:
+            for key in variant_fields:
+                or_condition.add(Q(**{key: search_term}), Q.OR)
         variant_queryset = models.Variants.objects.filter(or_condition).order_by('chrom_pos_ref_alt')
     else:
         variant_queryset = models.Variants.objects.order_by('chrom_pos_ref_alt')
@@ -153,7 +199,9 @@ def search(request):
         gene_queryset = {}
     if not variant_queryset:
         variant_queryset = {}
-    results = {'search_genes': gene_queryset, 'search_variants': variant_queryset}
+    if not aa_queryset:
+        aa_queryset = {}
+    results = {'search_genes': gene_queryset, 'search_aa_changes': aa_queryset, 'search_variants': variant_queryset}
 
     serializer = serializers.SearchSerializer(results, context={'request': request})
 

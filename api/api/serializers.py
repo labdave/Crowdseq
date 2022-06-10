@@ -12,6 +12,7 @@ class GeneAnnotationSerializer(serializers.ModelSerializer):
         model = models.GeneAnnotation
         fields = serializers.ALL_FIELDS
 
+
 class GeneWithAnnotationSerializer(serializers.ModelSerializer):
     annotations = GeneAnnotationSerializer(many=True, required=False)
 
@@ -32,23 +33,66 @@ class GeneSearchSerializer(serializers.ModelSerializer):
         fields = serializers.ALL_FIELDS
 
 
-class AminoAcidAnnotationSerializer(serializers.ModelSerializer):
+class TranscriptSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.AminoAcidAnnotation
+        model = models.Transcript
         fields = serializers.ALL_FIELDS
 
 
-class TranscriptSerializer(serializers.ModelSerializer):
+class TranscriptNoAASerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Transcript
+        exclude = ('aa_changes',)
+
+
+class AminoAcidChangeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.AminoAcidChange
+        exclude = ('transcripts', 'genes',)
+
+
+class AminoAcidSearchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.AminoAcidChange
+        exclude = ('transcripts', 'genes',)
+
+
+class AminoAcidAnnotationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.AminoAcidAnnotations
+        fields = serializers.ALL_FIELDS
+
+
+class GeneAminoAcidSerializer(serializers.ModelSerializer):
     annotations = AminoAcidAnnotationSerializer(many=True, required=False)
 
     class Meta:
-        model = models.Transcripts
+        model = models.AminoAcidChange
+        exclude = ('transcripts', 'genes',)
+
+
+class AminoAcidWithAnnotationsSerializer(serializers.ModelSerializer):
+    annotations = AminoAcidAnnotationSerializer(many=True, required=False)
+    genes = GeneWithAnnotationSerializer(many=True, required=False)
+    transcripts = TranscriptSerializer(many=True, required=False)
+
+    class Meta:
+        model = models.AminoAcidChange
+        fields = serializers.ALL_FIELDS
+
+
+class TranscriptAminoAcidSerializer(serializers.ModelSerializer):
+    aa_changes = AminoAcidChangeSerializer(many=True, required=False)
+
+    class Meta:
+        model = models.Transcript
         fields = serializers.ALL_FIELDS
 
 
 class VariantSerializer(serializers.ModelSerializer):
-    transcripts = TranscriptSerializer(source='filtered_transcripts', many=True, required=False)
-    gene = GeneWithAnnotationSerializer(source='filtered_genes', many=False, required=False)
+    transcripts = TranscriptAminoAcidSerializer(many=True, required=False)
+    gene = GeneWithAnnotationSerializer(many=False, required=False)
 
     class Meta:
         model = models.Variants
@@ -65,10 +109,20 @@ class VariantSearchSerializer(serializers.ModelSerializer):
 class SearchSerializer(serializers.Serializer):
     variants = VariantSerializer(source='search_variants', many=True, required=False)
     genes = GeneSearchSerializer(source='search_genes', many=True, required=False)
+    aa_changes = AminoAcidSearchSerializer(source='search_aa_changes', many=True, required=False)
+
+
+class FullAminoAcidSerializer(serializers.ModelSerializer):
+    transcripts = TranscriptNoAASerializer(many=True, required=False)
+    annotations = AminoAcidAnnotationSerializer(many=True, required=False)
+
+    class Meta:
+        model = models.AminoAcidChange
+        fields = serializers.ALL_FIELDS
 
 
 class FullGeneSerializer(serializers.ModelSerializer):
-    variants = VariantSerializer(many=True, required=False)
+    variants = VariantSearchSerializer(many=True, required=False)
     annotations = GeneAnnotationSerializer(many=True, required=False)
 
     class Meta:

@@ -59,30 +59,69 @@ class GeneAnnotation(models.Model):
     diagnosis = models.ForeignKey(DiagnosisCategory, blank=True, null=True, on_delete=models.CASCADE, related_name='gene_annotations')
 
 
-class Transcripts(models.Model):
-    md5sum = models.TextField(unique=True)
-    aa_change_name = models.TextField(blank=True, null=True)
-    ensembl_transcript_id = models.TextField(blank=True, null=True)
-    ensembl_hgvsc_id = models.TextField(blank=True, null=True)
-    ensembl_hgvsp_id = models.TextField(blank=True, null=True)
-    ensembl_peptide_id = models.TextField(blank=True, null=True)
-    refseq_stable_coding_hgvsc_id = models.TextField(blank=True, null=True)
-    refseq_stable_coding_transcript_id = models.TextField(blank=True, null=True)
-    refseq_stable_noncoding_hgvsc_id = models.TextField(blank=True, null=True)
-    refseq_stable_noncoding_transcript_id = models.TextField(blank=True, null=True)
-    refseq_stable_peptide_id = models.TextField(blank=True, null=True)
-    lrg_transcript_id = models.TextField(blank=True, null=True)
-    lrg_hgvsc_id = models.TextField(blank=True, null=True)
-    lrg_hgvsp_id = models.TextField(blank=True, null=True)
-    refseq_match_transcript_mane_select = models.TextField(blank=True, null=True)
-    refseq_match_transcript_mane_plus_clinical = models.TextField(blank=True, null=True)
-    ensembl_canonical = models.BooleanField(blank=True, null=True)
+class Transcript(models.Model):
+    ensembl_transcript_id = models.TextField(blank=False, null=False, unique=True)
     transcript_support_level = models.TextField(blank=True, null=True)
     transcript_length = models.IntegerField(blank=True, null=True)
+    refseq_match = models.TextField(blank=True, null=True)
 
 
-class AminoAcidAnnotation(models.Model):
-    transcripts = models.ManyToManyField(Transcripts, related_name="annotations")
+class EnsemblPeptide(models.Model):
+    transcript = models.ForeignKey(Transcript, on_delete=models.CASCADE, related_name='peptides')
+    peptide_id = models.TextField(blank=False, null=False, unique=True)
+    hgvsp_id = models.TextField(blank=True, null=True)
+    canonical = models.BooleanField(blank=False, null=False, default=False)
+
+
+class EnsemblHGVSC(models.Model):
+    transcript = models.ForeignKey(Transcript, on_delete=models.CASCADE, related_name='hgvsc')
+    hgvsc_id = models.TextField(blank=False, null=False, unique=True)
+
+
+class RefSeqTranscript(models.Model):
+    transcript = models.ForeignKey(Transcript, on_delete=models.CASCADE, related_name='refseq_transcripts')
+    refseq_transcript_id = models.TextField(blank=False, null=False, unique=True)
+    transcript_type = models.TextField(blank=False, null=False)
+
+
+class RefSeqHGVSC(models.Model):
+    transcript = models.ForeignKey(RefSeqTranscript, on_delete=models.CASCADE, related_name='hgvsc')
+    hgvsc_id = models.TextField(blank=False, null=False, unique=True)
+    transcript_type = models.TextField(blank=False, null=False)
+
+
+class RefSeqPeptide(models.Model):
+    transcript = models.ForeignKey(RefSeqTranscript, on_delete=models.CASCADE, related_name='peptides')
+    peptide_id = models.TextField(blank=False, null=False, unique=True)
+    hgvsp_id = models.TextField(blank=True, null=True)
+
+
+class LRGTranscript(models.Model):
+    transcript = models.ForeignKey(Transcript, on_delete=models.CASCADE, related_name='lrg_transcripts')
+    lrg_transcript_id = models.TextField(blank=False, null=False, unique=True)
+
+
+class LRGHGVSC(models.Model):
+    transcript = models.ForeignKey(LRGTranscript, on_delete=models.CASCADE, related_name='hgvsc')
+    hgvsc_id = models.TextField(blank=False, null=False, unique=True)
+
+
+class LRGPeptide(models.Model):
+    transcript = models.ForeignKey(LRGTranscript, on_delete=models.CASCADE, related_name='peptides')
+    peptide_id = models.TextField(blank=False, null=False, unique=True)
+    hgvsp_id = models.TextField(blank=True, null=True)
+
+
+class AminoAcidChange(models.Model):
+    long_name = models.TextField(blank=False, null=False, unique=True)
+    short_name = models.TextField(blank=False, null=False)
+    transcripts = models.ManyToManyField(Transcript, related_name='aa_changes')
+    genes = models.ManyToManyField(Genes, related_name='aa_changes')
+
+
+class AminoAcidAnnotations(models.Model):
+    gene = models.ForeignKey(Genes, on_delete=models.CASCADE, related_name="aa_annotations")
+    amino_acid = models.ForeignKey(AminoAcidChange, on_delete=models.CASCADE, related_name="annotations")
     annotation = models.TextField(blank=False, null=False)
     priority = models.IntegerField(blank=False, null=False)
     user = models.ForeignKey(User, db_column="user", null=True, blank=True, on_delete=models.CASCADE)
@@ -105,7 +144,7 @@ class Variants(models.Model):
     lrg_hgvsg_id = models.TextField(blank=True, null=True)
     alt_chr = models.TextField()
     alt_chrom_pos_ref_alt = models.TextField()
-    transcripts = models.ManyToManyField(Transcripts, related_name='variants')
+    transcripts = models.ManyToManyField(Transcript, related_name='variants')
 
 
 class AnnovarData(models.Model):
