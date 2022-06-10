@@ -45,6 +45,8 @@ import { VariantListComponent } from '../variant/components/variant-list/variant
 import { TranscriptListComponent } from '../transcript/components/transcript-list/transcript-list.component';
 import { GeneCardComponent } from '../gene/components/gene-card/gene-card.component';
 import { AnnovarCardComponent } from '../annotation/components/annovar-card/annovar-card.component';
+import { AminoacidCardComponent } from '../aa-change/components/aminoacid-card/aminoacid-card.component';
+import { AminoacidListComponent } from '../aa-change/components/aminoacid-list/aminoacid-list.component';
 
 @NgModule({
   imports: [
@@ -95,7 +97,9 @@ import { AnnovarCardComponent } from '../annotation/components/annovar-card/anno
     VariantCardComponent,
     GeneCardComponent,
     VariantListComponent,
-    TranscriptListComponent
+    TranscriptListComponent,
+    AminoacidListComponent,
+    AminoacidCardComponent
   ],
   exports: [
     CommonModule,
@@ -144,7 +148,9 @@ import { AnnovarCardComponent } from '../annotation/components/annovar-card/anno
     GeneCardComponent,
     AnnovarCardComponent,
     VariantListComponent,
-    TranscriptListComponent
+    TranscriptListComponent,
+    AminoacidListComponent,
+    AminoacidCardComponent
   ],
   providers: [
   ]

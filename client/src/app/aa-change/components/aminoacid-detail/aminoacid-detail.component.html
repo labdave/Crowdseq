@@ -1,0 +1,10 @@
+<div [seqLoadingOverlay]="isLoading" fxLayout="column" fxLayoutAlign="start center" style="height:100%">
+
+    <app-gene-card fxFlex="20" *ngIf="geneData" [data]="geneData" (geneChanged)="selectedGeneChanged($event)" style="padding-top: 10px; width: 100%"></app-gene-card>
+
+    <app-aminoacid-card fxFlex="20" *ngIf="aaData" [data]="aaData" [geneId]="selectedGeneId" style="padding-top: 10px; padding-bottom: 10px; width:100%"></app-aminoacid-card>
+
+    <app-transcript-list fxFlex="60" *ngIf="transcriptData" [data]="transcriptData" style="padding-top: 10px; padding-bottom: 10px; width:100%"></app-transcript-list>
+
+</div>
+  

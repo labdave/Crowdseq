@@ -1,0 +1,31 @@
+<div fxFill fxLayoutAlign="space-between center">
+    <mat-card *ngIf="currentAA" class="card-container" style="margin-left: 15px">
+        <div fxFlex fxLayout="column" style="width: 100%">
+            <div *ngIf="aaList && aaList.length > 1" fxLayout="column" class="auto-width-mat-select aa-select">
+                <mat-select [(value)]="selectedAminoAcidId" style="margin-bottom: 8px;" (selectionChange)="aaListSelectionChange($event)">
+                  <mat-option [value]="aa.id" *ngFor="let aa of aaList">{{ aa.short_name }}</mat-option>
+                </mat-select>
+                <mat-card-subtitle style="margin-bottom: 0px">({{ currentAA.long_name }})</mat-card-subtitle>
+            </div>
+            <div *ngIf="!geneList || geneList.length == 0" fxLayout="column" class="aa-select">
+                <mat-card-title>{{ currentAA.short_name }}</mat-card-title>
+                <mat-card-subtitle>({{ currentAA.long_name }})</mat-card-subtitle>
+            </div>
+
+            <div *ngIf="annotationList && annotationList.length > 0" fxFlex fxLayout="column" fxLayoutAlign="start start">
+                <div fxFlex fxLayout="column" style="width: 100%; padding-bottom: 10px; overflow:auto;">
+                    <app-annotation-selector fxFlex [annotations]="annotationList" [(index)]="annotationIndex"
+                        class="annotation-selector"></app-annotation-selector>
+                </div>
+            </div>
+
+            <div *ngIf="annotationList && annotationList.length == 0 || !annotationList" fxFlex fxLayout="column" fxLayoutAlign="start start">
+                <div fxFlex fxLayout="column" style="width: 100%; padding-bottom: 10px;">
+                    <p>No annotations for this Gene and Amino Acid Change combination.</p>
+                </div>
+            </div>
+
+            
+        </div>
+    </mat-card>
+</div>

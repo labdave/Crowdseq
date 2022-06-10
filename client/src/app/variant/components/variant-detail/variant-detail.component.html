@@ -7,11 +7,11 @@
     <div *ngIf="transcriptData && transcriptData.length > 0" fxLayoutAlign="start start" style="width: 100%" class="section-header">
         <h1>Transcripts</h1>
     </div>
-    <div  fxFlex fxLayout="column" *ngFor="let transcript of transcriptData" style="padding-top: 10px; width:100%">
+    <!-- <div  fxFlex fxLayout="column" *ngFor="let transcript of transcriptData" style="padding-top: 10px; width:100%">
         <app-transcript-card [data]="transcript"></app-transcript-card>
-    </div>
-<!-- 
-    <app-transcript-list *ngIf="transcriptData" [data]="transcriptData" style="padding-top: 10px; padding-bottom: 10px; width:100%"></app-transcript-list> -->
+    </div> -->
+
+    <app-transcript-list *ngIf="transcriptData" [data]="transcriptData" style="padding-top: 10px; padding-bottom: 10px; width:100%"></app-transcript-list>
 
 </div>
   

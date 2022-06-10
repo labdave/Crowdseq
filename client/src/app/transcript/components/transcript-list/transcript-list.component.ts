@@ -14,7 +14,7 @@ export class TranscriptListComponent implements AfterViewInit {
 
   resultsLength = 0;
 
-  displayedColumns: string[] = ['transcript_id', 'canonical', 'aa_change', 'transcript_length'];
+  displayedColumns: string[] = ['transcript_id', 'canonical', 'transcript_length'];
   dataSource: MatTableDataSource<any>;
 
   constructor() { }

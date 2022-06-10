@@ -1,3 +1,5 @@
+import { GeneAnnotation } from "src/app/annotation/models/gene-annotation";
+
 export class Gene {
     hgnc_gene_id: number;
     api_key: string;
@@ -26,4 +28,6 @@ export class Gene {
     vega_ids: string;
     omim_id: string;
     ucsc_id: string;
+
+    annotations: GeneAnnotation[];
 }

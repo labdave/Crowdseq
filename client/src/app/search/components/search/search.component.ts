@@ -38,7 +38,7 @@ export class SearchComponent implements AfterViewInit {
       debounceTime(500),
     )
     .subscribe(data => {
-      if (this.searchForm.valid ) {
+      if (data && data.indexOf('/') == -1 && this.searchForm.valid ) {
         this.formChange.next(true);
       }
     });

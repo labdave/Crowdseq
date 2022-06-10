@@ -18,6 +18,7 @@ import { AnnotationService } from './annotation/services/annotation.service';
 import { SearchService } from './search/services/search.service';
 import { GeneService } from './gene/services/gene.service';
 import { VariantService } from './variant/services/variant.service';
+import { AaChangeService } from './aa-change/services/aa-change.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { VariantService } from './variant/services/variant.service';
     SearchService,
     ThemeSelectionService,
     GeneService,
-    VariantService
+    VariantService,
+    AaChangeService
   ],
   bootstrap: [AppComponent]
 })

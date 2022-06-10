@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'annotation', loadChildren: () => import('./annotation/annotation.module').then(m => m.AnnotationModule), data: { preload: false } },
   { path: 'variant', loadChildren: () => import('./variant/variant.module').then(m => m.VariantModule), data: { preload: false } },
   { path: 'gene', loadChildren: () => import('./gene/gene.module').then(m => m.GeneModule), data: { preload: false } },
+  { path: 'aa', loadChildren: () => import('./aa-change/aa-change.module').then(m => m.AaChangeModule), data: { preload: false } },
   { path: '**', redirectTo: '/404' },
 ];
 

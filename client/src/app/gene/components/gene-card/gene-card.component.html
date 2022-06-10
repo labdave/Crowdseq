@@ -1,18 +1,20 @@
 <div fxFill fxLayoutAlign="space-between center">
-    <mat-card *ngIf="data" class="card-container" style="margin-left: 15px">
+    <mat-card *ngIf="currentGene" class="card-container" style="margin-left: 15px">
         <div fxFlex fxLayout="column" style="width: 100%">
-            <div fxFlex="30" fxLayout="row" fxLayoutAlign="space-between start">
-                <div fxFlex fxLayout="row" fxLayoutAlign="start start" class="card-header">
-                    <div>
-                        <mat-card-title *ngIf="data.approved_symbol">{{ data.approved_symbol }}</mat-card-title>
-                        <mat-card-subtitle>Gene</mat-card-subtitle>
-                    </div>
-                </div>
+            <div *ngIf="geneList && geneList.length > 1" fxLayout="column" class="auto-width-mat-select gene-select">
+                <mat-select [(value)]="selectedGeneId" style="margin-bottom: 8px;" (selectionChange)="geneListSelectionChange($event)">
+                  <mat-option [value]="gene.id" *ngFor="let gene of geneList">{{ gene.approved_symbol }}</mat-option>
+                </mat-select>
+                <mat-card-subtitle style="margin-bottom: 0px">Gene</mat-card-subtitle>
+            </div>
+            <div *ngIf="!geneList || geneList.length == 0" fxLayout="column" class="gene-select">
+                <mat-card-title>{{ currentGene.approved_symbol }}</mat-card-title>
+                <mat-card-subtitle>Gene</mat-card-subtitle>
             </div>
 
             <div fxFlex fxLayout="column" fxLayoutAlign="start start">
-                <div fxLayout="column" style="width: 100%; padding-bottom: 10px; overflow:auto;">
-                    <app-annotation-selector [annotations]="annotationList" [(index)]="annotationIndex"
+                <div fxFlex fxLayout="column" style="width: 100%; padding-bottom: 10px; overflow:auto;">
+                    <app-annotation-selector fxFlex [annotations]="annotationList" [(index)]="annotationIndex"
                         class="annotation-selector"></app-annotation-selector>
                 </div>
             </div>
